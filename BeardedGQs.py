@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
+# for naming output files
 j=1
 
 # beardedgenderqueer has 5 pages as of Jan 31 2018

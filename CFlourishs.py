@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
+# for naming output files
 j=1
 
 # Clare Flourish has 55 pages as of Feb 03 2018
@@ -35,7 +36,7 @@ for i in range(1,56):
         soup = BeautifulSoup(req.text, "lxml")
         text = soup.find(attrs={"class": "entry-content"}).get_text()
 
-        # remove trailing text
+        # remove trailing text, extra whitespace
         text = text.split("Share this")
         text = text[0].replace("\t", "").replace("\r", "").replace("\n", " ")
     
