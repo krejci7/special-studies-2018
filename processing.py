@@ -8,7 +8,8 @@ pages = int(input("Number of posts: "))
 for x in range(1, pages + 1):
 
     rawfile = "RawPosts/" + blog + "/" + str(x) + ".txt"
-    procfile = "ProcessedPosts/" + blog + "/" + str(x) + ".txt"
+    # uncomment to allow output into txt file
+    #procfile = "ProcessedPosts/" + blog + "/" + str(x) + ".txt"
 
     with open (rawfile, "r") as myfile:
         data=myfile.readlines()
@@ -56,4 +57,5 @@ for x in range(1, pages + 1):
             file.write(s + " ")
         '''
 
-    file.close()
+    # uncomment to allow output into txt file
+    #file.close()
