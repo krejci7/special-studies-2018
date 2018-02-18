@@ -1,5 +1,1 @@
-RaisingMyRainbow.com is a blog about the adventures in raising a slightly effeminate, possibly gay, totally fabulous son.
-Thu, 30 Dec 2010 22:29:18 +0000
-https://raisingmyrainbow.com/2010/12/30/hello-world/
-All Posts 
-   
+{"title": "RaisingMyRainbow.com is a blog about the adventures in raising a slightly effeminate, possibly gay, totally fabulous son.", "date": "Thu, 30 Dec 2010 22:29:18 +0000", "link": "https://raisingmyrainbow.com/2010/12/30/hello-world/", "tags": ["All Posts"], "text": "   ", "feedtitle": "Page 33 \u2013 Raising My Rainbow"}

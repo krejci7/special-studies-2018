@@ -1,6 +1,1 @@
-Pride pride pride
-Sat, 07 Nov 2009 15:07:34 +0000
-https://genderkid.wordpress.com/2009/11/07/pride-pride-pride/
-Celebration buenos aires lgbt pride 
-Hooray! The Pride March is today!
-Page 5 – genderkid
+{"title": "Pride pride pride", "date": "Sat, 07 Nov 2009 15:07:34 +0000", "link": "https://genderkid.wordpress.com/2009/11/07/pride-pride-pride/", "tags": ["Celebration", "buenos aires", "lgbt", "pride"], "text": "Hooray! The Pride March is today!", "feedtitle": "Page 5 \u2013 genderkid"}

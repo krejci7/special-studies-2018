@@ -1,6 +1,1 @@
-Why are we happy?
-Sat, 26 Jul 2008 20:26:37 +0000
-https://transblog.grieve-smith.com/2008/07/26/why-are-we-happy/
-Articles Feelings General News Good research Media 
-Dan Gilbert, author of Stumbling on Happiness, discusses the psychology of happiness, satisfaction and decision-making in this TED Talk video.
-Page 16 – Trans Blog
+{"title": "Why are we happy?", "date": "Sat, 26 Jul 2008 20:26:37 +0000", "link": "https://transblog.grieve-smith.com/2008/07/26/why-are-we-happy/", "tags": ["Articles", "Feelings", "General News", "Good research", "Media"], "text": "Dan Gilbert, author of Stumbling on Happiness, discusses the psychology of happiness, satisfaction and decision-making in this TED Talk video.", "feedtitle": "Page 16 \u2013 Trans Blog"}

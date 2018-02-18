@@ -2,6 +2,7 @@
 import feedparser # pip install feedparser
 import ssl
 from bs4 import BeautifulSoup
+import json
 
 # prevent "certificate verify failed" error
 if hasattr(ssl, '_create_unverified_context'):
@@ -10,24 +11,24 @@ if hasattr(ssl, '_create_unverified_context'):
 # for naming output files
 j=1
 
-# Trans Blog has 22 pages as of Feb 03 2018
+# Trans Blog has 22 pages as of Feb 15 2018
 for i in range(1,23):
 
     d = feedparser.parse('https://transblog.grieve-smith.com/feed/?paged='+str(i))
     # .. skipped handling http errors, cacheing ..
 
-    # output each posts to file
+    # output each post to file
     for e in d.entries:
 
-        file = open("TransBlog/" + str(j) + ".txt", "w")
+        post = {}
 
-	    # TODO: format output into something less gross, maybe a dict?
-        file.write(e.title + "\n")
-        file.write(e.published + "\n")
-        file.write(e.link + "\n")
+	    # format output into a dict
+        post['title'] = e.title
+        post['date'] = e.published
+        post['link'] = e.link
+        post['tags'] = []
         for f in e.tags:
-            file.write(f.term + " ")
-        file.write("\n")
+            post['tags'].append(f.term)
     
         # strip extra whitespace, newlines
         soup = BeautifulSoup(e.content[0].value, "lxml")
@@ -35,10 +36,10 @@ for i in range(1,23):
         text = soup.get_text().strip().rstrip()
         text = text.replace("\t", "").replace("\r", "").replace("\n", " ")
     
-        file.write(text + "\n")
-        #print(e.keys())
-        file.write(d.feed.title)
-        #print("\n") # 2 newlines
+        post['text'] = text
+        post['feedtitle'] = d.feed.title
+        file = open("RawPosts/TransBlog/" + str(j) + ".txt", "w")
+        file.write(json.dumps(post))
         file.close()
         
         j+=1

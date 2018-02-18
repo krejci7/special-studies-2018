@@ -1,6 +1,7 @@
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
+import json
 
 blog = input("Blog name: ")
 pages = int(input("Number of posts: "))
@@ -8,11 +9,12 @@ pages = int(input("Number of posts: "))
 for x in range(1, pages + 1):
 
     rawfile = "RawPosts/" + blog + "/" + str(x) + ".txt"
-    # uncomment to allow output into txt file
-    #procfile = "ProcessedPosts/" + blog + "/" + str(x) + ".txt"
+    procfile = "ProcessedPosts/" + blog + "/" + str(x) + ".txt"
 
-    with open (rawfile, "r") as myfile:
-        data=myfile.readlines()
+    with open(rawfile) as myfile:
+        fulldata = json.loads(myfile.read())
+
+    data = fulldata['text']
 
     file = open(procfile, "w")
 
@@ -27,35 +29,25 @@ for x in range(1, pages + 1):
     def pos(str):
         return nltk.pos_tag(str)
 
-    for paragraph in data:
-        # strip newline symbol, word tokenize
-        paragraph.replace('\n', '')
-        tokenized = word_tokenize(paragraph)
+    # strip newline symbol, word tokenize
+    tokenized = word_tokenize(data)
 
-        # stem input
-        '''
-        stemmed = []
-        stem(tokenized, stemmed)
-        print(stemmed)
-        '''
+    # stem input
+    stemmed = []
+    stem(tokenized, stemmed)
+    fulldata['stemmed'] = stemmed
 
-        # tokenize input
-        '''
-        tagged = pos(tokenized)
-        print(tagged)
-        '''
+    # tag pos input
+    tagged = pos(tokenized)
+    fulldata['pos'] = tagged
 
-        # stem input, tokenize stemmed content
-        '''
-        tagged = pos(stemmed)
-        print(tagged)
-        '''
+    # stem input, tag pos stemmed content
+    '''
+    tagged = pos(stemmed)
+    fulldata['posstemmed'] = tagged
+    '''
 
-        # write stemmed content to file
-        '''
-        for s in stemmed:
-            file.write(s + " ")
-        '''
+    # write stemmed content to file
+    file.write(json.dumps(fulldata))
 
-    # uncomment to allow output into txt file
-    #file.close()
+file.close()

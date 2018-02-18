@@ -1,6 +1,1 @@
-Support Carmen’s Place
-Mon, 14 May 2007 14:10:25 +0000
-https://transblog.grieve-smith.com/2007/05/14/support-carmens-place/
-General News 
-Not too far away from me there’s a small homeless shelter for transgender and GLB youth ages 17-24.  The church that housed the shelter had to close, and now they’re in a rented two-bedroom apartment.  A recent New York Times article gives details.  Here’s the shelter’s website and their Myspace page – which includes contact information if you want to volunteer and a Paypal link if you want to donate money.
-Page 18 – Trans Blog
+{"title": "Support Carmen\u2019s Place", "date": "Mon, 14 May 2007 14:10:25 +0000", "link": "https://transblog.grieve-smith.com/2007/05/14/support-carmens-place/", "tags": ["General News"], "text": "Not too far away from me there\u2019s a small homeless shelter for transgender and GLB youth ages 17-24.\u00a0 The church that housed the shelter had to close, and now they\u2019re in a rented two-bedroom apartment.\u00a0 A recent New York Times article gives details.\u00a0 Here\u2019s the shelter\u2019s website and their Myspace page \u2013 which includes contact information if you want to volunteer and a Paypal link if you want to donate money.", "feedtitle": "Page 18 \u2013 Trans Blog"}
