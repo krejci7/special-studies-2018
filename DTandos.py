@@ -3,6 +3,12 @@ import feedparser # pip install feedparser
 import ssl
 from bs4 import BeautifulSoup
 import json
+import datetime
+import re
+import calendar
+
+# define dictionary of month abbreviations : month number
+monthint = {v: k for k,v in enumerate(calendar.month_abbr)}
 
 # prevent "certificate verify failed" error
 if hasattr(ssl, '_create_unverified_context'):
@@ -25,6 +31,15 @@ for i in range(1,7):
 	    # format output into a dict
         post['title'] = e.title
         post['date'] = e.published
+
+        # save date as an "object"
+        year = int(re.findall(r'\d{4}', e.published)[0])
+        months = re.findall(r'\w{3}', e.published)[1]
+        month = monthint[months]
+        day = int(re.findall(r'\d{2}', e.published)[0])
+        date = str(datetime.date(year, month, day))
+        post['dateobj'] = date
+
         post['link'] = e.link
         post['tags'] = []
         for f in e.tags:
