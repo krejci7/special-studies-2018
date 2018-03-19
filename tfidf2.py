@@ -3,9 +3,14 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
+from itertools import islice
 
-sent1 = "This is a sentence with a certain number of words and a certain length which only mentions dogs one time"
-sent2 = "I love dogs so much and dogs are amazing yay beautiful dogs"
+sentences = []
+sentences.append("This is a sentence with a certain number of words and a certain length which only mentions dogs one time")
+sentences.append("I love dogs so much and dogs are amazing yay beautiful dogs")
+sentences.append("I am really just trying to write some test sentences; I don't have too much of a goal here")
+sentences.append("I love dogs, you love dogs, who doesn't love dogs? What kind of fool would not recognize that animals of the canine variety are fantastic?")
+sentences.append("This is just a very long sentence in which I would like to prove that even if there are a lot of words, it is able to choose only the ten most common which I suppose is a little silly here because most words are only used once but I bet word will win.")
 
 lem = WordNetLemmatizer()
 
@@ -25,26 +30,28 @@ def tokenize(str):
 def tag(list):
     return nltk.pos_tag(list)
 
-tagged1 = tag(tokenize(sent1))
-tagged2 = tag(tokenize(sent2))
+# from itertools recipes
+def take(n, iterable):
+    "Return first n items of the iterable as a list"
+    return list(islice(iterable, n))
 
-lemmed1 = ""
-lemmed2 = ""
+tagged = []
+for s in sentences:
+    tagged.append(tag(tokenize(s)))
+
 final = {}
 
 # lemmatize
-for i in tagged1:
-    lemmed1 += lem.lemmatize(i[0],conv(i[1]))
-    lemmed1 += " "
-final[0] = lemmed1
-
-for i in tagged2:
-    lemmed2 += lem.lemmatize(i[0],conv(i[1]))
-    lemmed2 += " "
-final[1] = lemmed2
+for t in tagged:
+    index = tagged.index(t)
+    string = ""
+    for i in t:
+        string += lem.lemmatize(i[0],conv(i[1]))
+        string += " "
+    final[index] = string
 
 # calculate tfidf
-tfidf = TfidfVectorizer(stop_words='english')
+tfidf = TfidfVectorizer(stop_words='english', max_features=3000)
 tfs = tfidf.fit_transform(final.values())
 names = tfidf.get_feature_names()
 dense = tfs.todense()
@@ -53,15 +60,25 @@ finaldict = {}
 
 # save matrix as a dictionary
 # finaldict = { sentence # : [ (name, freq), (name,freq), ... ] }
-for i in range(0, 2):
+for i in final.keys():
     finaldict[i] = []
     for j in range(0, len(names)):
         if (dense[i,j] > 0):
             finaldict[i].append((j, dense[i,j]))
 
-print("sent1")
-for i in finaldict[0]:
-    print('{0: <20} {1}'.format(names[i[0]], i[1]))
-print("sent2")
-for i in finaldict[1]:
-    print('{0: <20} {1}'.format(names[i[0]], i[1]))
+
+# print 10 most common words for each document
+for i in final.keys():
+    print("sentence " + str(i))
+    sort = sorted(finaldict[i], key=lambda x: x[1], reverse=True)
+    best = take(10, sort)
+    for y in best:
+        print('{0: <20} {1}'.format(names[y[0]], y[1]))
+
+# #print 10 most common words overall
+# tfidfsmall = TfidfVectorizer(stop_words='english', max_features=10)
+# tfssmall = tfidfsmall.fit_transform(final.values())
+# namessmall = tfidfsmall.get_feature_names()
+
+# for x in namessmall:
+#     print(x)

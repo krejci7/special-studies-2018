@@ -3,6 +3,11 @@ import json
 import re
 import matplotlib.pyplot as plt
 import datetime
+from datetime import timedelta
+import os
+
+# size of sliding window
+window = 30
 
 # get number of blogs, overlayed or not
 numblogs = int(input("Number of blogs: "))
@@ -18,27 +23,36 @@ plt.figure(1)
 # get blog name and number of posts for each blog
 for currblog in range (1, numblogs + 1):
     blog = input("Blog #" + str(currblog) +" name: ")
-    pages = int(input("Number of posts: "))
+    #pages = int(input("Number of posts: "))
 
     freq[currblog] = {}
+    directory = "./RawPosts/" + blog
 
-    for p in range(1, pages + 1):
+    #for p in range(1, pages + 1):
+    for filename in os.listdir(directory):
 
-        rawfile = "RawPosts/" + blog + "/" + str(p) + ".txt"
+        if filename.endswith(".txt"):
 
-        with open(rawfile) as myfile:
-            fulldata = json.loads(myfile.read())
+            rawfile = os.path.join(directory, filename)
 
-        # extract year, month from post
-        year = re.findall(r'\d{4}', fulldata['dateobj'])[0]
-        month = re.findall(r'\d{2}', fulldata['dateobj'])[2]
-        date = datetime.date(int(year), int(month), 1)
+            #rawfile = "RawPosts/" + blog + "/" + str(p) + ".txt"
 
-        # freq = {month : number of posts from that month}
-        if date in freq[currblog]:
-            freq[currblog][date] += 1
-        else:
-            freq[currblog][date] = 1
+            with open(rawfile) as myfile:
+                fulldata = json.loads(myfile.read())
+
+            # extract year, month from post
+            year = re.findall(r'\d{4}', fulldata['dateobj'])[0]
+            month = re.findall(r'\d{2}', fulldata['dateobj'])[2]
+            day = re.findall(r'\d{2}', fulldata['dateobj'])[3]
+            date = datetime.date(int(year), int(month), int(day))
+
+            # freq = {day : number of posts from that day}
+
+            for single_date in (date + timedelta(days = n) for n in range(-window,window + 1)):
+                if single_date in freq[currblog]:
+                    freq[currblog][single_date] += 1
+                else:
+                    freq[currblog][single_date] = 1
 
     x[currblog] = list(i for i in sorted(freq[currblog].keys()))
     y[currblog] = list(freq[currblog][i] for i in sorted(freq[currblog].keys()))
