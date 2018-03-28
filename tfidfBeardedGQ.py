@@ -20,10 +20,15 @@ for filename in os.listdir(directory):
 
 final = process(posts)
 
-tf = tfidf(final, 1000)
+# print(final)
+
+tf = tfidf(final)
 print(tf.most_common_all(10))
-print(tf.cos_sim(1,3))
-print(tf.cos_sim(8,24))
-print(tf.cos_sim(9,15))
-print(tf.cos_sim(43,31))
-print(tf.cos_sim(37,38))
+
+print(tf.most_similar()[0],tf.most_similar()[1])
+print(tf.least_similar()[0],tf.least_similar()[1])
+
+tf.most_common(47)
+tf.most_common(53)
+
+# print("total words: ", tf.total_words())

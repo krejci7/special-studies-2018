@@ -31,5 +31,5 @@ for i in tagged:
     lemmatized += lem.lemmatize(i[0],conv(i[1]))
     lemmatized += " "
 
-print(text)
-print(lemmatized)
+# print(text)
+# print(lemmatized)

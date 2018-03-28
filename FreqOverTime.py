@@ -75,3 +75,12 @@ plt.show()
 # he recommends day buckets and play with the window
 # jupyter
 # pip3 install jupyter
+
+
+
+
+# could smooth curves if you want
+# if you see anomalies, see what they were talking about
+# could even TF-IDF on different buckets instead of just looking with your eyes (look at top 5 works that describe the peak)
+
+# overlay posts over time for specific words (top 5 most common)
