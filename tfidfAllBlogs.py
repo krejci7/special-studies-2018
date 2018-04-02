@@ -5,14 +5,18 @@ import json
 #
 # dated: transsexual, transgendered, male, female, "born male", "born female", natal, sex change, transvestite, tgirl, tgirls,
 # transform, transgenderism, "genetic male", "genetic female"
+
+# protogay, prehomosexual, homosexual
 #
 # modern: transgender, trans, nonbinary, genderqueer, AMAB, DMAB, AFAB, DFAB, CAMAB, CAFAB, SRS, GRS, "assigned male", "assigned female",
 # queer, transition, transitioning, legible, privilege
 #
-vocab = ["transgenders", "transsexual", "transgendered", "male", "female", "born male", "born female", "natal", "sex change", "transvestite",
-"tgirl", "tgirls", "transform", "transgender","trans","nonbinary","genderqueer","AMAB","DMAB","AFAB","DFAB","CAMAB","CAFAB","SRS","GRS",
-"assigned male","assigned female","queer","transition","transitioning", "legible", "privilege", "transgenderism", "genetic male",
-"genetic female"]
+vocab = ["transgender", "trans", "nonbinary", "genderqueer", "AMAB", "DMAB", "AFAB", "DFAB", "CAMAB", "CAFAB", "SRS", "GRS", "assign male",
+"assign female", "queer", "transition", "legible", "privilege", "GNC", "gender nonconforming","gay","transgenders", "transsexual",
+"transgendered","bear male","bear female","natal male", "natal female","sex change","transvestite","tgirl","tgirls","transform",
+"transgenderism","genetic male","genetic female","protogay","prehomosexual","homosexual", "become man", "become woman","biological male",
+"biological female","NB","enby", "transmasculine","transfeminine", "mutilate","cis","autogynephile","autogynephiles","autogynephilia",
+"autogynephilic"]
 
 
 file = "FullBlogs/AllBlogs.txt"
@@ -22,25 +26,25 @@ file = "FullBlogs/indices.txt"
 with open(file) as myfile:
     i = json.loads(myfile.read())
 
-tf = tfidf(final, maxfeatures=5000, vocab=None)
+tf = tfidf(final, maxfeatures=5000, vocab=vocab)
 # print(tf.most_common_all(10))
 
 # print("Most similar: ", tf.most_similar()[0],tf.most_similar()[1])
 # print("Least similar: ", tf.least_similar()[0],tf.least_similar()[1])
 
-print(tf.cos_sim_all())
+# print(tf.cos_sim_all())
 
-# tf.most_common(0)
-# tf.most_common(1)
-# tf.most_common(2)
-# tf.most_common(3)
-# tf.most_common(4)
-# tf.most_common(5)
-# tf.most_common(7)
-# tf.most_common(6)
-# tf.most_common(8)
-# tf.most_common(9)
-# tf.most_common(10)
+tf.most_common(0)
+tf.most_common(1)
+tf.most_common(2)
+tf.most_common(3)
+tf.most_common(4)
+tf.most_common(5)
+tf.most_common(6)
+tf.most_common(7)
+tf.most_common(8)
+tf.most_common(9)
+tf.most_common(10)
 
 tf.heat_map()
 
@@ -92,3 +96,8 @@ group 3 vs. group 4 (and group 2, less so)
 "RmyR": 9,
 "TransBlog": 10}
 """
+
+
+
+# similarity by word
+# spider plot (or bar chart)

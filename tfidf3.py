@@ -3,6 +3,7 @@ import scipy
 from itertools import islice
 from numpy import nditer
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import cm
 
 import nltk
 from nltk.stem import WordNetLemmatizer
@@ -19,15 +20,15 @@ def take(n, iterable):
 class tfidf:
 
     # dictionary = appropriately processed dictionary of document names and their contents
-    def __init__(self, dictionary, maxfeatures=2000, inphrase=2, vocab=None):
+    def __init__(self, dictionary, maxfeatures=2000, inphrase=2, vocab=None, stopwords='english'):
         self.maxf = maxfeatures
         self.dict = dictionary
-        self.vectorizer = TfidfVectorizer(stop_words='english', max_features=maxfeatures, analyzer='word', ngram_range=(1,inphrase),
+        self.vectorizer = TfidfVectorizer(stop_words=stopwords, max_features=maxfeatures, analyzer='word', ngram_range=(1,inphrase),
                 vocabulary=vocab)
         self.tfs = self.vectorizer.fit_transform(self.dict.values())
         self.names = self.vectorizer.get_feature_names()
 
-    def most_common(self, document, n=10):
+    def most_common(self, document, n=10, print_output=True):
         dense = self.tfs.todense()
         # termfreq = [(term1, frequency1), (term2,frequency2), ...]
         termfreq = []
@@ -38,9 +39,10 @@ class tfidf:
         # print 10 most common words for one document
         sort = sorted(termfreq, key=lambda x: x[1], reverse=True)
         best = take(n, sort)
-        print("DOCUMENT %d" % document)
-        for y in best:
-            print('{0: <20} {1}'.format(self.names[y[0]], y[1]))
+        if print_output:
+            print("DOCUMENT %d" % document)
+            for y in best:
+                print('{0: <20} {1}'.format(self.names[y[0]], y[1]))
         return best
 
     # print n most common words across all documents
@@ -59,7 +61,7 @@ class tfidf:
     
     def heat_map(self):
         a = (self.tfs * self.tfs.T).A
-        plt.imshow(a, cmap='hot', interpolation='nearest')
+        plt.imshow(a, cmap=cm.Blues, interpolation='nearest')
         plt.show()
     
     def most_similar(self):

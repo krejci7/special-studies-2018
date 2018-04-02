@@ -38,17 +38,21 @@ indices['plag2'] = 6
 final = process(sentences)
 
 test = tfidf(final, 100)
-print(test.most_common_all(10))
-print(test.cos_sim(indices['many dogs'], indices['extra dogs']))
-print(test.cos_sim(1, 3))
-print(test.cos_sim(indices['long'], indices['extra dogs']))
-print(test.cos_sim_all()[1][3])
-print(test.most_similar()[1])
-print(test.least_similar()[1])
+# print(test.most_common_all(10))
+# print(test.cos_sim(indices['many dogs'], indices['extra dogs']))
+# print(test.cos_sim(1, 3))
+# print(test.cos_sim(indices['long'], indices['extra dogs']))
+# print(test.cos_sim_all()[1][3])
+# print(test.most_similar()[1])
+# print(test.least_similar()[1])
 
 
 
+testings = ["I was born male", "She is going to become a man"]
 
+testingf = process(testings)
+
+print(testingf)
 
 
 # lem = WordNetLemmatizer()
