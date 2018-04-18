@@ -48,11 +48,28 @@ test = tfidf(final, 100)
 
 
 
-testings = ["I was born male", "She is going to become a man"]
+# testings = ["I was born male", "She is going to become a man"]
 
-testingf = process(testings)
+# testingf = process(testings)
 
-print(testingf)
+# print(testingf)
+
+
+t1 = ["I am trying to find out if you get a penalty for using a smaller variety of words", "transsexual transgenders transgendered transvestite"]
+t1f = process(t1)
+tf1 = tfidf(t1f, stopwords=None, inphrase=1)
+
+tf1.most_common(1)
+
+t1 = ["I am trying to find out if you get a penalty for using a smaller variety of words", "transsexual transsexual transgendered transsexual aa"]
+t1f = process(t1)
+tf1 = tfidf(t1f, stopwords=None, inphrase=1)
+
+tf1.most_common(1)
+
+
+
+# great news, you don't get a penalty for using a smaller variety of words
 
 
 # lem = WordNetLemmatizer()

@@ -22,11 +22,13 @@ vocab = ["transgender", "trans", "nonbinary", "genderqueer", "AMAB", "DMAB", "AF
 file = "FullBlogs/AllBlogs.txt"
 with open(file) as myfile:
     final = json.loads(myfile.read())
+# del final['5']
+# del final['9']
 file = "FullBlogs/indices.txt"
 with open(file) as myfile:
     i = json.loads(myfile.read())
 
-tf = tfidf(final, maxfeatures=5000, vocab=vocab)
+tf = tfidf(final, maxfeatures=5000, vocab=None)
 # print(tf.most_common_all(10))
 
 # print("Most similar: ", tf.most_similar()[0],tf.most_similar()[1])

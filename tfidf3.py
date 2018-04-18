@@ -25,7 +25,10 @@ class tfidf:
         self.dict = dictionary
         self.vectorizer = TfidfVectorizer(stop_words=stopwords, max_features=maxfeatures, analyzer='word', ngram_range=(1,inphrase),
                 vocabulary=vocab)
-        self.tfs = self.vectorizer.fit_transform(self.dict.values())
+        if hasattr(self.dict, 'values'):
+            self.tfs = self.vectorizer.fit_transform(self.dict.values())
+        else:
+            self.tfs = self.vectorizer.fit_transform(self.dict)
         self.names = self.vectorizer.get_feature_names()
 
     def most_common(self, document, n=10, print_output=True):
@@ -48,7 +51,10 @@ class tfidf:
     # print n most common words across all documents
     def most_common_all(self, n=10):
         tfidfsmall = TfidfVectorizer(stop_words='english', max_features=n)
-        tfssmall = tfidfsmall.fit_transform(self.dict.values())
+        if hasattr(self.dict, 'values'):
+            tfssmall = tfidfsmall.fit_transform(self.dict.values())
+        else:
+            tfssmall = tfidfsmall.fit_transform(self.dict)
         return tfidfsmall.get_feature_names()
 
     def cos_sim(self, doc1_name, doc2_name):
