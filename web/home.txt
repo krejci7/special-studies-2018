@@ -1,0 +1,21 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Testing</title>
+  <meta name="description" content="Testing">
+  <meta name="author" content="Jesse Noah Krejci">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+
+<body>
+  <script src="js/scripts.js"></script>
+  
+  <div id="graph"></div>
+</body>
+</html>

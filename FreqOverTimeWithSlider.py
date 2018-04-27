@@ -1,38 +1,27 @@
 import nltk
 import json
 import re
-import matplotlib.pyplot as plt
+import plotly.plotly as py
+import plotly.graph_objs as go
 import datetime
 from datetime import timedelta
 import os
 
 # size of sliding window
-window = 90
+window = 45
 
 # get number of blogs, overlayed or not
-numblogs = 2
+numblogs = 1
 overlay = 1
 freq = {}
 x = {}
 y = {}
-plt.figure(1)
-blog = input("Blog name: ")
-word = input("Term: ")
-words = []
-or1 = 0
-and1 = 0
-match = re.match(r'(\S+) (or (\S+) ?)+', word)
-if match:
-    or1 = 1
-    for each in range(1, len(match.groups())+1, 2):
-        words.append(match.group(each))
-    if None in words:
-        words.remove(None)
-
 
 # get blog name and number of posts for each blog
 for currblog in range (1, numblogs + 1):
-    
+    blog = input("Blog #" + str(currblog) +" name: ")
+    #pages = int(input("Number of posts: "))
+
     freq[currblog] = {}
     directory = "./RawPosts/" + blog
 
@@ -56,45 +45,49 @@ for currblog in range (1, numblogs + 1):
 
             # freq = {day : number of posts from that day}
 
-            text = fulldata['text']
-            for t in fulldata['tags']:
-                text += " "
-                text += t
-            text += " "
-            text += fulldata['title']
-
-            present = False
-
-            if words and or1:
-                for w in words:
-                    if w.lower() in text.lower():
-                        present = True
-
-            elif word.lower() in text.lower():
-                present = True
-
-            if present or currblog == 2:
-                if currblog == 1:
-                    print(date)
-                for single_date in (date + timedelta(days = n) for n in range(-window,window + 1, 30)):
-                    if single_date in freq[currblog]:
-                        freq[currblog][single_date] += 1
-                    else:
-                        freq[currblog][single_date] = 1
-
+            for single_date in (date + timedelta(days = n) for n in range(-window,window + 1)):
+                if single_date in freq[currblog]:
+                    freq[currblog][single_date] += 1
+                else:
+                    freq[currblog][single_date] = 1
+    
     x[currblog] = list(i for i in sorted(freq[currblog].keys()))
     y[currblog] = list(freq[currblog][i] for i in sorted(freq[currblog].keys()))
 
-    if not overlay and currblog == 1:
-        ax1 = plt.subplot(numblogs, 1, currblog)
-    if not overlay and not (currblog == 1):
-        plt.subplot(numblogs, 1, currblog, sharex = ax1, sharey = ax1)
+    trace = go.Scatter(x=x[currblog], y=y[currblog])
+    data = [trace]
 
-    plt.plot(x[currblog],y[currblog])
-    plt.xticks(rotation=90)
+    layout = dict(
+        title=blog,
+        xaxis=dict(
+            rangeselector=dict(
+                buttons=list([
+                    dict(count=1,
+                        label='1m',
+                        step='month',
+                        stepmode='backward'),
+                    dict(count=6,
+                        label='6m',
+                        step='month',
+                        stepmode='backward'),
+                    dict(count=1,
+                        label='YTD',
+                        step='year',
+                        stepmode='todate'),
+                    dict(count=1,
+                        label='1y',
+                        step='year',
+                        stepmode='backward'),
+                    dict(step='all')
+                ])
+            ),
+            rangeslider=dict(),
+            type='date'
+        )
+    )
 
-plt.show()
-
+    fig = dict(data=data, layout=layout)
+    py.plot(fig)
 
 
 # automate window size; put it as a parameter so you can change it

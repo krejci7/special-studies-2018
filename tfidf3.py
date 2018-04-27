@@ -43,7 +43,6 @@ class tfidf:
         sort = sorted(termfreq, key=lambda x: x[1], reverse=True)
         best = take(n, sort)
         if print_output:
-            print("DOCUMENT %d" % document)
             for y in best:
                 print('{0: <20} {1}'.format(self.names[y[0]], y[1]))
         return best

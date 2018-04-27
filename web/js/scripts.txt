@@ -1,0 +1,24 @@
+var g = document.getElementById('graph');
+
+Plotly.d3.json('/Users/skrejci/Documents/College/2017-2018/CompSci/FreqData/BeardedGQ.json', function(error, rawdata) {
+  if (error) g.innerHTML = error;
+
+  var trace1 = {
+    x:rawdata[0],
+    y:rawdata[1], 
+    marker: {color: "rgba(142,189,42,0.9)"}, 
+    name: "B18_LR_hdh", 
+    type: "bar"
+  }
+    
+  var data = [trace1];
+  var layout = {
+    title: "Graph Title", 
+    titlefont: {
+      color: "#7f7f7f", 
+      size: 18
+    }, 
+    yaxis: {title: "y-axis title"}
+  };
+  Plotly.plot(g, data);
+})
