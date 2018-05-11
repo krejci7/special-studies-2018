@@ -46,6 +46,17 @@ print("loaded imports")
 
 # print("word features assembled")
 
+documents_f = open("documents.pickle", "rb")
+documents = pickle.load(documents_f)
+documents_f.close()
+print("loaded documents")
+
+# random.shuffle(documents)
+
+word_features_f = open("word_features.pickle", "rb")
+word_features = pickle.load(word_features_f)
+word_features_f.close()
+print("loaded word_features")
 
 def find_features(document):
     words = set(document)
@@ -91,18 +102,6 @@ def find_features(document):
 
 ########################### load pickles #################################
 
-documents_f = open("documents.pickle", "rb")
-documents = pickle.load(documents_f)
-documents_f.close()
-print("loaded documents")
-
-# random.shuffle(documents)
-
-word_features_f = open("word_features.pickle", "rb")
-word_features = pickle.load(word_features_f)
-word_features_f.close()
-print("loaded word_features")
-
 training_set_f = open("training_set.pickle", "rb")
 training_set = pickle.load(training_set_f)
 training_set_f.close()
@@ -136,19 +135,21 @@ print("loaded classifier")
 
 
 # to be used WITHOUT shuffling documents
-# BeardedGQ = [(find_features(rev), category) for (rev, category) in documents[:22]]
-# BornWrong = [(find_features(rev), category) for (rev, category) in documents[56:78]]
-# CFlourish = [(find_features(rev), category) for (rev, category) in documents[81:103]]
-# DTando = [(find_features(rev), category) for (rev, category) in documents[641:663]]
-# genderkid = [(find_features(rev), category) for (rev, category) in documents[695:718]]
-# HerDog = [(find_features(rev), category) for (rev, category) in documents[830:852]]
-# HMcK = [(find_features(rev), category) for (rev, category) in documents[1027:1049]]
-# JanitorQ = [(find_features(rev), category) for (rev, category) in documents[1167:1189]]
-# RadQ = [(find_features(rev), category) for (rev, category) in documents[1407:1429]]
-# RmyR = [(find_features(rev), category) for (rev, category) in documents[1439:1461]]
-# TransBlog = [(find_features(rev), category) for (rev, category) in documents[1769:1791]]
+BeardedGQ = [(find_features(rev), category) for (rev, category) in documents[:22]]
+BornWrong = [(find_features(rev), category) for (rev, category) in documents[56:78]]
+CFlourish = [(find_features(rev), category) for (rev, category) in documents[81:103]]
+DTando = [(find_features(rev), category) for (rev, category) in documents[641:663]]
+genderkid = [(find_features(rev), category) for (rev, category) in documents[695:718]]
+HerDog = [(find_features(rev), category) for (rev, category) in documents[830:852]]
+HMcK = [(find_features(rev), category) for (rev, category) in documents[1027:1049]]
+JanitorQ = [(find_features(rev), category) for (rev, category) in documents[1167:1189]]
+RadQ = [(find_features(rev), category) for (rev, category) in documents[1407:1429]]
+RmyR = [(find_features(rev), category) for (rev, category) in documents[1439:1461]]
+TransBlog = [(find_features(rev), category) for (rev, category) in documents[1769:1791]]
 
-# print("featuresets assembled")
+featuresets = BeardedGQ + BornWrong + CFlourish + DTando + genderkid + HerDog + HMcK + JanitorQ + RadQ + RmyR + TransBlog
+
+print("featuresets assembled")
 
 
 # print("testing accuracy")
@@ -169,23 +170,27 @@ print("loaded classifier")
 
 # print("Naive Bayes accuracy: ",(nltk.classify.accuracy(classifier, testing_set))*100)
 
-mini_set = testing_set[0:50]
+# mini_set = testing_set[0:50]
 
 names = ["BeardedGQ","BornWrong","CFlourish","DTando","genderkid","HerDog", "HMcK","JanitorQ","RadQ","RmyR","TransBlog"]
 
 mini_set_fts = []
 mini_set_ans = []
-for each in mini_set:
+for each in featuresets:
     mini_set_fts.append(each[0])
     mini_set_ans.append(each[1])
+
+print("set organized")
 
 
 answers = classifier.classify_many(mini_set_fts)
 
+print("answers determined")
+
 mat = confusion_matrix(answers, mini_set_ans, labels=names)
 
 
-
+# from http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
