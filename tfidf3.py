@@ -2,6 +2,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import scipy
 from itertools import islice
 from numpy import nditer
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import cm
 

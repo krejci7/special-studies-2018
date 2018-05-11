@@ -129,7 +129,7 @@ for currblog in range (1, numblogs + 1):
     x = list(i for i in sorted(dat.keys()))
     y = list(dat[i] for i in sorted(dat.keys()))
 
-    ax1 = plt.subplot(2, 1, 1)
+    ax1 = plt.subplot()
 
     plt.plot(x,y)
     plt.xticks(rotation=90)
@@ -144,13 +144,13 @@ for currblog in range (1, numblogs + 1):
     axes = plt.gca()
     axes.set_ylim([-1.1,1.1])
 
-    x = list(i for i in sorted(freq.keys()))
-    y = list(freq[i] for i in sorted(freq.keys()))
+    # x = list(i for i in sorted(freq.keys()))
+    # y = list(freq[i] for i in sorted(freq.keys()))
 
-    plt.subplot(2, 1, 2, sharex = ax1)
+    # plt.subplot(2, 1, 2, sharex = ax1)
 
-    plt.plot(x,y)
-    plt.xticks(rotation=90)
+    # plt.plot(x,y)
+    # plt.xticks(rotation=90)
 
 plt.show()
 

@@ -76,7 +76,7 @@ for currblog in range (1, numblogs + 1):
             if present or currblog == 2:
                 if currblog == 1:
                     print(date)
-                for single_date in (date + timedelta(days = n) for n in range(-window,window + 1, 30)):
+                for single_date in (date + timedelta(days = n) for n in range(-window,window + 1)):
                     if single_date in freq[currblog]:
                         freq[currblog][single_date] += 1
                     else:
